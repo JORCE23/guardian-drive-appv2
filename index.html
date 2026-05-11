@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Guardian Drive App | Prototipo Beta</title>
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Guardian">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Guardian Drive","short_name":"Guardian","display":"standalone","background_color":"#0f172a","theme_color":"#0f172a"}'>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f172a',
+                        card: '#1e293b',
+                        border: '#334155',
+                        accent: '#deff9a',
+                        danger: '#f43f5e',
+                        warning: '#f59e0b',
+                        safe: '#10b981'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-dark text-slate-100 font-sans antialiased h-[100dvh] flex flex-col overflow-hidden">
+
+    <header class="bg-card border-b border-border px-4 py-3 flex justify-between items-center shrink-0 z-40">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-accent text-xl"></i>
+            <span class="font-extrabold text-sm tracking-wider text-white">GUARDIAN<span class="text-accent">DRIVE</span></span>
+        </div>
+        <div class="flex items-center gap-2 text-slate-400 text-sm">
+            <i class="fa-solid fa-satellite-dish text-safe animate-pulse text-xs"></i>
+            <i class="fa-solid fa-circle-user text-white text-base"></i>
+        </div>
+    </header>
+
+    <main id="main" class="flex-1 overflow-y-auto z-10">
+        
+        <div id="screen-home" class="p-4 pb-24 space-y-4">
+            <div class="bg-card border border-border rounded-2xl p-4 flex justify-between items-center shadow-lg">
+                <div>
+                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Vehículo Protegido</p>
+                    <h3 class="text-base font-black text-white tracking-wide">Opel Corsa 2022</h3>
+                    <p class="text-xs text-safe mt-1 font-semibold"><i class="fa-solid fa-microchip mr-1"></i> Módulo IoT Stealth BLE</p>
+                </div>
+                <div class="w-12 h-12 rounded-full bg-dark flex items-center justify-center border border-accent shrink-0">
+                    <i class="fa-solid fa-car text-accent text-lg"></i>
+                </div>
+            </div>
+
+            <div class="py-4 flex flex-col items-center justify-center">
+                <div class="relative">
+                    <div class="absolute inset-0 rounded-full bg-danger/20 animate-ping"></div>
+                    <button onclick="triggerAntiTrauma()" class="relative z-10 w-32 h-32 rounded-full bg-gradient-to-b from-danger to-red-800 flex flex-col items-center justify-center shadow-[0_0_30px_rgba(244,63,94,0.3)] border-4 border-dark active:scale-95 transition-all">
+                        <i class="fa-solid fa-triangle-exclamation text-white text-3xl mb-1"></i>
+                        <span class="text-white font-black text-xs tracking-wider uppercase">S.O.S</span>
+                        <span class="text-red-200 text-[8px] mt-0.5 tracking-tighter uppercase font-bold">Anti-Trauma</span>
+                    </button>
+                </div>
+                <p class="text-xs text-slate-500 mt-4 text-center max-w-xs">Iluminación de cabina y liberación mecánica inmediata.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-card border border-border rounded-xl p-3">
+                    <span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Inhibidor (Jammer)</span>
+                    <div class="flex items-center gap-1.5 mt-1">
+                        <i class="fa-solid fa-signal text-safe text-xs"></i>
+                        <span class="font-bold text-xs text-white">Señal Limpia</span>
+                    </div>
+                </div>
+                <div class="bg-card border border-border rounded-xl p-3">
+                    <span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Red Mesh Local</span>
+                    <div class="flex items-center gap-1.5 mt-1">
+                        <i class="fa-solid fa-tower-broadcast text-accent text-xs"></i>
+                        <span class="font-bold text-xs text-white">28 Nodos</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="simulateJammer()" class="w-full bg-dark hover:border-accent border border-accent/20 text-slate-300 font-bold text-xs p-3 rounded-xl flex justify-between items-center transition-all active:scale-95">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-bolt text-accent"></i> Simular Ataque Jammer</span>
+                <span class="bg-accent text-dark font-black text-[10px] px-2.5 py-1 rounded-lg uppercase">Probar</span>
+            </button>
+        </div>
+
+        <div id="screen-ai" class="p-4 pb-24 hidden space-y-4 flex flex-col">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="text-base font-bold text-white uppercase tracking-wider">Visión Edge</h3>
+                    <p class="text-xs text-slate-400">Escaneo YOLOv8 en smartphone activo</p>
+                </div>
+                <span class="bg-accent text-dark text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">ESPEJO NEGRO</span>
+            </div>
+
+            <div class="relative h-80 bg-black rounded-2xl overflow-hidden border border-border flex flex-col justify-end p-3 shadow-inner">
+                <div class="absolute inset-0 bg-[radial-gradient(#1e293b10_1px,transparent_1px)] [background-size:10px_10px]"></div>
+                
+                <div class="absolute top-1/4 left-1/3 w-28 h-40 border-2 border-accent bg-accent/5 rounded flex flex-col justify-between p-1 animate-pulse">
+                    <span class="bg-accent text-dark text-[8px] font-bold px-1 self-start uppercase tracking-tighter">Peatón: 94%</span>
+                    <span class="text-accent text-[8px] self-end font-mono font-bold">1.5m</span>
+                </div>
+
+                <div class="relative z-10 bg-dark/90 backdrop-blur-md rounded-xl p-2 border border-border flex justify-between items-center text-xs">
+                    <span class="text-safe flex items-center gap-1.5 text-xs font-semibold"><i class="fa-solid fa-circle text-[8px]"></i> Perímetro Limpio</span>
+                    <span class="text-slate-400 text-xs font-mono">30 FPS</span>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 text-center px-4 leading-relaxed">El smartphone vigila con la pantalla apagada. Alertas sonoras preventivas si detecta aproximaciones perimetrales súbitas.</p>
+        </div>
+
+        <div id="screen-map" class="p-4 pb-24 hidden space-y-3 flex flex-col h-full">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="text-base font-bold text-white uppercase tracking-wider">Mapa Predictivo</h3>
+                    <p class="text-xs text-slate-400">Reportes comunitarios y data GIS regional</p>
+                </div>
+                <span class="bg-danger/10 text-danger border border-danger/30 text-[9px] font-black px-2.5 py-1 rounded uppercase">Zonas Críticas</span>
+            </div>
+
+            <div class="relative h-96 bg-slate-950 rounded-2xl overflow-hidden border border-border flex flex-col justify-between p-3 shadow-inner">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#deff9a_1px,transparent_1px)] [background-size:12px_12px]"></div>
+                
+                <svg class="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 20 80 L 280 150 M 40 280 L 220 50 M 90 320 L 290 180" stroke="#ffffff" stroke-width="4" fill="none" />
+                </svg>
+
+                <div class="absolute top-1/4 left-1/3 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="absolute w-24 h-24 bg-danger/40 rounded-full blur-xl animate-pulse"></div>
+                    <div class="relative z-10 flex flex-col items-center">
+                        <span class="w-3 h-3 bg-danger rounded-full border-2 border-white shadow-[0_0_10px_#f43f5e]"></span>
+                        <span class="bg-dark/80 border border-border text-white font-bold text-[8px] px-1.5 py-0.5 rounded-full mt-1.5 whitespace-nowrap">Ctro Concepción</span>
+                    </div>
+                </div>
+
+                <div class="absolute top-2/3 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="absolute w-16 h-16 bg-warning/40 rounded-full blur-lg"></div>
+                    <div class="relative z-10 flex flex-col items-center">
+                        <span class="w-2.5 h-2.5 bg-warning rounded-full border border-white"></span>
+                        <span class="bg-dark/80 border border-border text-slate-300 font-medium text-[8px] px-1 py-0.5 rounded mt-1 whitespace-nowrap">Paso Llacolén</span>
+                    </div>
+                </div>
+
+                <div class="absolute top-1/2 right-1/4 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="absolute w-20 h-20 bg-danger/30 rounded-full blur-lg animate-pulse"></div>
+                    <div class="relative z-10 flex flex-col items-center">
+                        <span class="w-2.5 h-2.5 bg-danger rounded-full border border-white"></span>
+                        <span class="bg-dark/80 border border-border text-white font-bold text-[8px] px-1 py-0.5 rounded mt-1 whitespace-nowrap">San Pedro Paz</span>
+                    </div>
+                </div>
+
+                <div class="relative z-20 flex justify-between items-start">
+                    <div class="bg-dark/90 backdrop-blur-sm border border-border rounded-lg p-1.5 text-[9px] space-y-1">
+                        <div class="flex items-center gap-1.5 text-danger font-bold">
+                            <span class="w-2 h-2 rounded-full bg-danger animate-ping"></span>Zona Encerronas
+                        </div>
+                        <div class="flex items-center gap-1.5 text-warning font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-warning"></span>Reporte Jammers (48h)
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <button class="w-7 h-7 bg-card border border-border rounded-lg flex items-center justify-center text-white active:scale-95 transition-all"><i class="fa-solid fa-plus text-xs"></i></button>
+                        <button class="w-7 h-7 bg-card border border-border rounded-lg flex items-center justify-center text-white active:scale-95 transition-all"><i class="fa-solid fa-minus text-xs"></i></button>
+                    </div>
+                </div>
+
+                <div class="relative z-20 bg-card/90 backdrop-blur-sm border border-border rounded-xl p-2.5 text-xs flex justify-between items-center shadow-lg">
+                    <div class="flex items-center gap-2">
+                         <i class="fa-solid fa-diamond-turn-right text-danger text-base animate-pulse"></i>
+                        <div>
+                            <span class="text-[10px] text-slate-400 block font-bold uppercase tracking-widest">Riesgo Dinámico</span>
+                            <span class="text-danger font-black text-xs">84% ALTO: Desviar</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-circle-chevron-right text-accent text-lg"></i>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 text-center px-4 leading-relaxed">Visualización de BI para planeamiento de rutas seguras basadas en incidencias históricas y en tiempo real de la red.</p>
+        </div>
+
+        <div id="screen-mesh" class="p-4 pb-24 hidden space-y-4 flex flex-col">
+            <div>
+                <h3 class="text-base font-bold text-white uppercase tracking-wider">Radar Mesh</h3>
+                <p class="text-xs text-slate-400">Rastreo distribuido BLE para zonas sin cobertura móvil</p>
+            </div>
+
+            <div class="bg-card border border-border rounded-2xl p-6 text-center flex-1 flex flex-col items-center justify-center min-h-[300px] h-full relative overflow-hidden shadow-lg">
+                <div class="absolute w-72 h-72 rounded-full border border-border/30 animate-ping"></div>
+                <div class="absolute w-48 h-48 rounded-full border border-border/50"></div>
+                <div class="absolute w-24 h-24 rounded-full border border-accent/20"></div>
+                
+                <i class="fa-solid fa-tower-broadcast text-accent text-5xl relative z-10 mb-2 animate-bounce"></i>
+                <p class="text-sm text-white font-black relative z-10 tracking-wide uppercase">Inmunidad Colectiva</p>
+                <p class="text-xs text-slate-400 mt-1 max-w-xs relative z-10 leading-relaxed font-medium">Búsqueda pasiva activada: 14 vehículos comunitarios listos para triangular posición en subterráneos incomunicados.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <nav class="shrink-0 bg-card border-t border-border h-16 flex justify-around items-center px-2 z-50">
+        <button onclick="switchTab('home')" id="tab-home" class="flex flex-col items-center gap-1.5 text-accent transition-all">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span class="text-[10px] font-extrabold tracking-tight">Inicio</span>
+        </button>
+        <button onclick="switchTab('ai')" id="tab-ai" class="flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-all">
+            <i class="fa-solid fa-eye text-lg"></i>
+            <span class="text-[10px] font-extrabold tracking-tight">IA</span>
+        </button>
+        <button onclick="switchTab('map')" id="tab-map" class="flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-all">
+            <i class="fa-solid fa-map-location-dot text-lg"></i>
+            <span class="text-[10px] font-extrabold tracking-tight">Mapa</span>
+        </button>
+        <button onclick="switchTab('mesh')" id="tab-mesh" class="flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-all">
+            <i class="fa-solid fa-network-wired text-lg"></i>
+            <span class="text-[10px] font-extrabold tracking-tight">Mesh</span>
+        </button>
+    </nav>
+
+    <div id="modal-alert" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden">
+        <div class="bg-dark border-2 border-danger rounded-3xl p-6 text-center max-w-xs w-full shadow-2xl animate-scale-up">
+            <div class="w-16 h-16 bg-danger/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-danger animate-pulse">
+                <i class="fa-solid fa-signal text-danger text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-black text-white uppercase tracking-wider">¡Ataque Jammer!</h3>
+            <p class="text-slate-300 text-xs mt-2 leading-relaxed font-medium">Supresión de señal confirmada. Módulo inercial activado: apagado seguro programado a los 20 km/h.</p>
+            <button onclick="closeModal()" class="mt-5 w-full bg-danger text-white font-black text-xs py-3 rounded-xl uppercase tracking-wider shadow-lg active:scale-95 transition-all">Autorizar Bloqueo</button>
+        </div>
+    </div>
+
+    <script>
+        // Asegura que la PWA no muestre la barra de Chrome en Android
+        if ('standalone' in window.navigator && window.navigator.standalone) {
+          document.body.classList.add('pwa-mode');
+        }
+
+        function switchTab(tab) {
+            const tabs = ['home', 'ai', 'map', 'mesh'];
+            tabs.forEach(t => {
+                document.getElementById('screen-' + t).classList.add('hidden');
+                document.getElementById('tab-' + t).className = 'flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-all';
+            });
+            document.getElementById('screen-' + tab).classList.remove('hidden');
+            document.getElementById('tab-' + tab).className = 'flex flex-col items-center gap-1.5 text-accent transition-all';
+            
+            // Forzar el scroll al inicio de la pestaña al cambiar
+            document.getElementById('main').scrollTop = 0;
+        }
+
+        function triggerAntiTrauma() {
+            alert("🚨 PROTOCOLO ANTI-TRAUMA ACTIVADO:\n\n1. Cabina iluminada para disuasión visual.\n2. Seguros destrabados mecánicamente.\n3. Baliza silenciosa de S.O.S enviada.");
+        }
+
+        function simulateJammer() {
+            document.getElementById('modal-alert').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-alert').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
