@@ -10,7 +10,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Guardian">
     <meta name="theme-color" content="#0f172a">
-    <link rel="manifest" href='data:application/manifest+json,{"name":"Guardian Drive","short_name":"Guardian","display":"standalone","background_color":"#0f172a","theme_color":"#0f172a"}'>
+    
+    <link rel="manifest" href="./manifest.json">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -31,9 +33,9 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-dark text-slate-100 font-sans antialiased h-[100dvh] flex flex-col overflow-hidden">
+<body class="bg-dark text-slate-100 font-sans antialiased h-[100dvh] flex flex-col overflow-hidden select-none">
 
-    <header class="bg-card border-b border-border px-4 py-3 flex justify-between items-center shrink-0 z-40">
+    <header class="bg-card border-b border-border px-4 py-3 flex justify-between items-center shrink-0 z-40 pt-[max(12px,env(safe-area-inset-top))]">
         <div class="flex items-center gap-2">
             <i class="fa-solid fa-shield-halved text-accent text-xl"></i>
             <span class="font-extrabold text-sm tracking-wider text-white">GUARDIAN<span class="text-accent">DRIVE</span></span>
@@ -206,27 +208,27 @@
 
     </main>
 
-    <nav class="shrink-0 bg-card border-t border-border h-16 flex justify-around items-center px-2 z-50">
-        <button onclick="switchTab('home')" id="tab-home" class="flex flex-col items-center gap-1.5 text-accent transition-all">
-            <i class="fa-solid fa-house text-lg"></i>
+    <nav class="shrink-0 bg-card border-t border-border h-16 flex justify-around items-center px-2 z-50 pb-[env(safe-area-inset-bottom)]">
+        <button onclick="switchTab('home')" id="tab-home" class="flex flex-col items-center gap-1 text-accent transition-all">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             <span class="text-[10px] font-extrabold tracking-tight">Inicio</span>
         </button>
-        <button onclick="switchTab('ai')" id="tab-ai" class="flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-all">
-            <i class="fa-solid fa-eye text-lg"></i>
+        <button onclick="switchTab('ai')" id="tab-ai" class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 transition-all">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
             <span class="text-[10px] font-extrabold tracking-tight">IA</span>
         </button>
-        <button onclick="switchTab('map')" id="tab-map" class="flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-all">
-            <i class="fa-solid fa-map-location-dot text-lg"></i>
+        <button onclick="switchTab('map')" id="tab-map" class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 transition-all">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
             <span class="text-[10px] font-extrabold tracking-tight">Mapa</span>
         </button>
-        <button onclick="switchTab('mesh')" id="tab-mesh" class="flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-all">
-            <i class="fa-solid fa-network-wired text-lg"></i>
+        <button onclick="switchTab('mesh')" id="tab-mesh" class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 transition-all">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 10h-2.13c-.4-3.11-2.76-5.47-5.87-5.87V2h-2v2.13c-3.11.4-5.47 2.76-5.87 5.87H2v2h2.13c.4 3.11 2.76 5.47 5.87 5.87V22h2v-2.13c3.11-.4 5.47-2.76 5.87-5.87H22v-2h2v-2zm-12 5.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
             <span class="text-[10px] font-extrabold tracking-tight">Mesh</span>
         </button>
     </nav>
 
     <div id="modal-alert" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-6 hidden">
-        <div class="bg-dark border-2 border-danger rounded-3xl p-6 text-center max-w-xs w-full shadow-2xl animate-scale-up">
+        <div class="bg-dark border-2 border-danger rounded-3xl p-6 text-center max-w-xs w-full shadow-2xl">
             <div class="w-16 h-16 bg-danger/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-danger animate-pulse">
                 <i class="fa-solid fa-signal text-danger text-2xl"></i>
             </div>
@@ -237,21 +239,14 @@
     </div>
 
     <script>
-        // Asegura que la PWA no muestre la barra de Chrome en Android
-        if ('standalone' in window.navigator && window.navigator.standalone) {
-          document.body.classList.add('pwa-mode');
-        }
-
         function switchTab(tab) {
             const tabs = ['home', 'ai', 'map', 'mesh'];
             tabs.forEach(t => {
                 document.getElementById('screen-' + t).classList.add('hidden');
-                document.getElementById('tab-' + t).className = 'flex flex-col items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-all';
+                document.getElementById('tab-' + t).className = 'flex flex-col items-center gap-1 text-slate-500 hover:text-slate-300 transition-all';
             });
             document.getElementById('screen-' + tab).classList.remove('hidden');
-            document.getElementById('tab-' + tab).className = 'flex flex-col items-center gap-1.5 text-accent transition-all';
-            
-            // Forzar el scroll al inicio de la pestaña al cambiar
+            document.getElementById('tab-' + tab).className = 'flex flex-col items-center gap-1 text-accent transition-all';
             document.getElementById('main').scrollTop = 0;
         }
 
