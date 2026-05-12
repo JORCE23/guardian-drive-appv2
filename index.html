@@ -42,13 +42,16 @@
         </div>
         <div class="flex items-center gap-2 text-slate-400 text-sm">
             <i class="fa-solid fa-satellite-dish text-safe animate-pulse text-xs"></i>
-            <i class="fa-solid fa-circle-user text-white text-base"></i>
+            <button onclick="openSettingsModal()" class="text-white hover:text-accent transition-colors">
+                <i class="fa-solid fa-circle-user text-lg"></i>
+            </button>
         </div>
     </header>
 
     <main id="main" class="flex-1 overflow-y-auto z-10">
         
         <div id="screen-home" class="p-4 pb-24 space-y-4">
+            
             <div class="bg-card border border-border rounded-2xl p-4 flex justify-between items-center shadow-lg">
                 <div>
                     <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Vehículo Protegido</p>
@@ -60,7 +63,22 @@
                 </div>
             </div>
 
-            <div class="py-4 flex flex-col items-center justify-center">
+            <div class="bg-card border border-border rounded-xl p-3.5 flex justify-between items-center shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div id="mall-icon-bg" class="w-9 h-9 rounded-lg bg-dark flex items-center justify-center border border-border transition-colors">
+                        <i id="mall-icon" class="fa-solid fa-lock-open text-slate-500 transition-colors"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-white block">Modo Mall (Blindaje)</span>
+                        <span id="mall-status-text" class="text-[10px] text-slate-400 block">Desactivado: Encendido estándar</span>
+                    </div>
+                </div>
+                <button onclick="toggleMallMode()" id="mall-toggle" class="w-12 h-6 bg-dark rounded-full p-1 border border-border flex items-center transition-all duration-300">
+                    <div id="mall-toggle-wheel" class="w-4 h-4 bg-slate-500 rounded-full transition-all duration-300 transform translate-x-0"></div>
+                </button>
+            </div>
+
+            <div class="py-2 flex flex-col items-center justify-center">
                 <div class="relative">
                     <div class="absolute inset-0 rounded-full bg-danger/20 animate-ping"></div>
                     <button onclick="triggerAntiTrauma()" class="relative z-10 w-32 h-32 rounded-full bg-gradient-to-b from-danger to-red-800 flex flex-col items-center justify-center shadow-[0_0_30px_rgba(244,63,94,0.3)] border-4 border-dark active:scale-95 transition-all">
@@ -69,7 +87,7 @@
                         <span class="text-red-200 text-[8px] mt-0.5 tracking-tighter uppercase font-bold">Anti-Trauma</span>
                     </button>
                 </div>
-                <p class="text-xs text-slate-500 mt-4 text-center max-w-xs">Iluminación de cabina y liberación mecánica inmediata.</p>
+                <p class="text-xs text-slate-500 mt-4 text-center max-w-xs">Iluminación de cabina, liberación mecánica y envío de baliza silenciosa.</p>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
@@ -238,7 +256,76 @@
         </div>
     </div>
 
+    <div id="modal-settings" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-end justify-center hidden">
+        <div class="bg-card border-t border-border rounded-t-3xl p-6 max-w-md w-full shadow-2xl space-y-5 max-h-[85vh] overflow-y-auto pb-12">
+            
+            <div class="flex justify-between items-center border-b border-border pb-3">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-accent text-lg"></i>
+                    <h3 class="text-sm font-extrabold text-white uppercase tracking-wider">Centro de Control y BI</h3>
+                </div>
+                <button onclick="closeSettingsModal()" class="w-7 h-7 bg-dark rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+
+            <div class="bg-dark border border-border rounded-xl p-3 space-y-2">
+                <div class="flex justify-between items-center">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Score InsurTech (Manejo)</span>
+                    <span class="text-xs font-mono font-bold text-accent">98 / 100</span>
+                </div>
+                <div class="w-full bg-card h-2 rounded-full overflow-hidden">
+                    <div class="bg-accent h-full w-[98%] rounded-full"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 leading-tight">Telemetría inercial óptima. Conducción calificada para reducción del 50% de deducible en póliza B2B.</p>
+            </div>
+
+            <div class="space-y-2">
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Nube de Evidencia (Clips Encriptados)</span>
+                <div class="space-y-1.5">
+                    <div class="bg-dark border border-border rounded-lg p-2.5 flex justify-between items-center text-xs">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up text-safe"></i>
+                            <div>
+                                <span class="font-bold text-white block text-[11px]">Intento Perimetral (YOLOv8)</span>
+                                <span class="text-[9px] text-slate-500 font-mono">Hoy, 19:42 | Subida exitosa</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-accent font-semibold underline cursor-pointer">Ver Clip</span>
+                    </div>
+                    <div class="bg-dark border border-border rounded-lg p-2.5 flex justify-between items-center text-xs">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up text-safe"></i>
+                            <div>
+                                <span class="font-bold text-white block text-[11px]">Alerta Inercial (Grúa)</span>
+                                <span class="text-[9px] text-slate-500 font-mono">08/05/2026 | Subida exitosa</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-accent font-semibold underline cursor-pointer">Ver Clip</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Baliza S.O.S (Contactos Vinculados)</span>
+                <div class="bg-dark border border-border rounded-xl p-3 flex justify-between items-center">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center text-white font-bold text-xs">P</div>
+                        <div>
+                            <span class="font-bold text-xs text-white block">Papá Entel</span>
+                            <span class="text-[10px] text-safe font-mono">+56 9 8765 4321</span>
+                        </div>
+                    </div>
+                    <span class="bg-safe/10 text-safe border border-safe/30 text-[8px] font-extrabold px-2 py-0.5 rounded uppercase">Baliza Activa</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <script>
+        let isMallModeActive = false;
+
         function switchTab(tab) {
             const tabs = ['home', 'ai', 'map', 'mesh'];
             tabs.forEach(t => {
@@ -250,8 +337,43 @@
             document.getElementById('main').scrollTop = 0;
         }
 
+        // LÓGICA MODO MALL
+        function toggleMallMode() {
+            isMallModeActive = !isMallModeActive;
+            const toggleWheel = document.getElementById('mall-toggle-wheel');
+            const toggleBg = document.getElementById('mall-toggle');
+            const statusText = document.getElementById('mall-status-text');
+            const iconBg = document.getElementById('mall-icon-bg');
+            const icon = document.getElementById('mall-icon');
+
+            if (isMallModeActive) {
+                toggleWheel.className = "w-4 h-4 bg-dark rounded-full transition-all duration-300 transform translate-x-6";
+                toggleBg.className = "w-12 h-6 bg-accent rounded-full p-1 border border-accent flex items-center transition-all duration-300";
+                statusText.innerText = "ARMADO: Motor bloqueado por lejanía";
+                statusText.className = "text-[10px] text-accent block font-bold";
+                iconBg.className = "w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center border border-accent transition-colors";
+                icon.className = "fa-solid fa-lock text-accent transition-colors";
+            } else {
+                toggleWheel.className = "w-4 h-4 bg-slate-500 rounded-full transition-all duration-300 transform translate-x-0";
+                toggleBg.className = "w-12 h-6 bg-dark rounded-full p-1 border border-border flex items-center transition-all duration-300";
+                statusText.innerText = "Desactivado: Encendido estándar";
+                statusText.className = "text-[10px] text-slate-400 block";
+                iconBg.className = "w-9 h-9 rounded-lg bg-dark flex items-center justify-center border border-border transition-colors";
+                icon.className = "fa-solid fa-lock-open text-slate-500 transition-colors";
+            }
+        }
+
+        // LÓGICA PANELES MODALES
+        function openSettingsModal() {
+            document.getElementById('modal-settings').classList.remove('hidden');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('modal-settings').classList.add('hidden');
+        }
+
         function triggerAntiTrauma() {
-            alert("🚨 PROTOCOLO ANTI-TRAUMA ACTIVADO:\n\n1. Cabina iluminada para disuasión visual.\n2. Seguros destrabados mecánicamente.\n3. Baliza silenciosa de S.O.S enviada.");
+            alert("🚨 PROTOCOLO ANTI-TRAUMA ACTIVADO:\n\n1. Cabina iluminada para disuasión visual.\n2. Seguros destrabados mecánicamente.\n3. Baliza silenciosa de S.O.S enviada a Papá Entel.");
         }
 
         function simulateJammer() {
